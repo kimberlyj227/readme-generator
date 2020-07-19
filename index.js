@@ -1,9 +1,8 @@
-// inquirer var
-// fs far
-// create question prompts
 
-var inquirer = require("inquirer");
-var fs = require("fs");
+const inquirer = require("inquirer");
+const fs = require("fs");
+let license;
+
 
 // array of questions for user
 const questions = [
@@ -34,14 +33,14 @@ const questions = [
     },
     {
         type: "input",
-        message: "Enter the test instructions.",
-        name: "testInst"
+        message: "Enter the test information.",
+        name: "tests"
     },
     {
         type: "list",
         message: "What is the license type?",
         name: "license",
-        choices: ["a", "b", "c"]
+        choices: ["MIT", "ODbL", "Apache License 2.0", "ISC", "GPL v3"]
     },
     {
         type: "input",
@@ -52,40 +51,70 @@ const questions = [
         type: "input",
         message: "Enter your email address.",
         name: "email"
+    },
+    {
+        type: "input",
+        message: "Enter all of the authors of the project.",
+        name: "authors"
     }
-    
-
 ];
 
 // function to write README file
-function writeToFile(fileName, answers) {
-    fs.writeFile(fileName, createMarkdown(answers), function(err) {
-        if(err) {
-            return console.log(err);
-        }
+const writeToFile =(fileName, answers) => {
+    fs.writeFile(fileName, createMarkdown(answers), (err) => {
+        if(err)  console.log(err);
+        
         console.log("Success!");
     })
 }
 
-// function to initialize program
-function init() {
-    inquirer.prompt(questions).then(function(answers) {
-        console.log(answers);
-        writeToFile("README.md", answers);
-    })
+// function to set license icon
+const getLicense = (answers) => {
+    const licenseData = answers.license
+    console.log(answers.license)
+
+    if (licenseData === "MIT") {
+        license= 
+        "(https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+    } else if (licenseData === "ODbL") {
+        license =
+        "(https://img.shields.io/badge/License-ODbL-brightgreen.svg)](https://opendatacommons.org/licenses/odbl/)"
+    } else if (licenseData === "ISC") {
+        license =
+        "(https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)"
+    } else if (licenseData === "Apache License 2.0") {
+        license = 
+        "(https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
+    } else {
+        license = 
+        "(https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
+    }
 
 }
 
-function createMarkdown(answers) {
+
+// function to initialize program
+const init = () => {
+    inquirer.prompt(questions).then((answers) => {
+        console.log(answers);
+        getLicense(answers)
+        writeToFile("README.md", answers);
+    })
+}
+
+// function creates markdown
+const createMarkdown = (answers) => {
 return (`# ${answers.title}
+[![Github License]${license}
 ## Table of Contents
-1. [Description](#description)
-2. [Installation](#installation)
-3. [Usage](#usage)
-4. [License](#license)
-5. [Contribution Guidelines](#contribution-guidelines)
-6. [Test Instructions](#test-instructions)
-7. [Questions](#questions)
+[Description](#description)
+[Installation](#installation)
+[Usage](#usage)
+[License](#license)
+[Contribution Guidelines](#contribution-guidelines)
+[Test Instructions](#test-instructions)
+[Authors](#authors)
+[Questions](#questions)
 ## Description {#description}
 ${answers.description}
 ## Installation {#installation}
@@ -93,11 +122,13 @@ ${answers.instructions}
 ## Usage {#usage}
 ${answers.usageInfo}
 ## License {#license}
-${answers.license}
+Licensed under the ${answers.license} license.
 ## Contribution Guidelines {#contribution-guidelines}
 ${answers.contGuide}
-## Test Instructions {#test-instructions}
-${answers.testInst}
+## Tests {#tests}
+${answers.tests}
+## Authors {authors}
+${answers.authors}
 ## Questions {#questions}
 [Github](https://github.com/${answers.username})
 [Email](${answers.email})
