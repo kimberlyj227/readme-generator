@@ -96,7 +96,6 @@ const getLicense = (answers) => {
 // function to initialize program
 const init = () => {
     inquirer.prompt(questions).then((answers) => {
-        console.log(answers);
         getLicense(answers)
         writeToFile("README.md", answers);
     })
