@@ -71,7 +71,6 @@ const writeToFile =(fileName, answers) => {
 // function to set license icon
 const getLicense = (answers) => {
     const licenseData = answers.license
-    console.log(answers.license)
 
     if (licenseData === "MIT") {
         license= 
@@ -106,14 +105,14 @@ const createMarkdown = (answers) => {
 return (`# ${answers.title}
 [![Github License]${license}
 ## Table of Contents
-[Description](#description)
-[Installation](#installation)
-[Usage](#usage)
-[License](#license)
-[Contribution Guidelines](#contribution-guidelines)
-[Test Instructions](#test-instructions)
-[Authors](#authors)
-[Questions](#questions)
+[Description](#description)<br>
+[Installation](#installation)<br>
+[Usage](#usage)  <br>
+[License](#license)  <br>
+[Contribution Guidelines](#contribution) <br> 
+[Test Instructions](#test-instructions)  <br>
+[Authors](#authors)  <br>
+[Questions](#questions)  
 ## Description {#description}
 ${answers.description}
 ## Installation {#installation}
@@ -122,14 +121,14 @@ ${answers.instructions}
 ${answers.usageInfo}
 ## License {#license}
 Licensed under the ${answers.license} license.
-## Contribution Guidelines {#contribution-guidelines}
+## Contribution Guidelines {#contribution}
 ${answers.contGuide}
 ## Tests {#tests}
 ${answers.tests}
-## Authors {authors}
+## Authors {#authors}
 ${answers.authors}
 ## Questions {#questions}
-[Github](https://github.com/${answers.username})
+[Github](https://github.com/${answers.username})<br>
 [Email](${answers.email})
 `);
 }
