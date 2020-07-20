@@ -109,25 +109,25 @@ return (`# ${answers.title}
 [Installation](#installation)<br>
 [Usage](#usage)  <br>
 [License](#license)  <br>
-[Contribution Guidelines](#contribution) <br> 
-[Test Instructions](#test-instructions)  <br>
+[Contribution Guidelines](#contribution-guidelines) <br> 
+[Test Instructions](#tests)  <br>
 [Authors](#authors)  <br>
 [Questions](#questions)  
-## Description {#description}
+## Description
 ${answers.description}
-## Installation {#installation}
+## Installation
 ${answers.instructions}
-## Usage {#usage}
+## Usage
 ${answers.usageInfo}
-## License {#license}
+## License
 Licensed under the ${answers.license} license.
-## Contribution Guidelines {#contribution}
+## Contribution Guidelines
 ${answers.contGuide}
-## Tests {#tests}
+## Tests
 ${answers.tests}
-## Authors {#authors}
+## Authors
 ${answers.authors}
-## Questions {#questions}
+## Questions
 [Github](https://github.com/${answers.username})<br>
 [Email](${answers.email})
 `);
